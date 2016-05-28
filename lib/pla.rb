@@ -1,5 +1,12 @@
-require "pla/version"
+require 'pla/arrivals'
+require 'pla/departures'
 
-module Pla
-  # Your code goes here...
+class PLA
+  def self.arrivals
+    PLA::Arrivals.new.records
+  end
+
+  def self.departures
+    PLA::Departures.new.records
+  end
 end

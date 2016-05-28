@@ -1,41 +1,33 @@
-# Pla
+PLA
+==
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/pla`. To experiment with that code, run `bin/console` for an interactive prompt.
+The PLA is the Port of London Authority. It handles ships and shipping into and around the Thames and stuff for London.
 
-TODO: Delete this and the text above, and describe your gem
+It provides ship movement details at it's [website](https://www.pla.co.uk/Port-Trade/Ship-movements/Ship-movements). Unfortunately the information it produces is just awful. There is no good way to handle the order in which comes (it appears to do some kind of ORDER BY on the vessel name field), for instance. Nor anyway to filter the data.
 
-## Installation
+Thus I have written a scraper which will provide hashes of each entry.
 
-Add this line to your application's Gemfile:
+This may be then used for filtering or searching or ordering as is fit.
+
+Install
+--
+
+`gem install pla`
+
+Usage
+--
 
 ```ruby
-gem 'pla'
+require 'pla'
+
+arrivals = PLA.arrivals
+departures = PLA.departures
+
+puts arrivals
+puts departures
 ```
 
-And then execute:
+Licence
+--
 
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install pla
-
-## Usage
-
-TODO: Write usage instructions here
-
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/pla.
-
-
-## License
-
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
+MIT

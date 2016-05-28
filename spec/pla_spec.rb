@@ -1,11 +1,8 @@
 require 'spec_helper'
 
-describe Pla do
-  it 'has a version number' do
-    expect(Pla::VERSION).not_to be nil
-  end
-
-  it 'does something useful' do
-    expect(false).to eq(true)
+describe PLA do
+  let(:pla){PLA}
+  it "doesn't crap it's self when loaded" do
+    expect(pla).not_to be(nil)
   end
 end

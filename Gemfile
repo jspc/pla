@@ -1,4 +1,6 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in pla.gemspec
-gemspec
+gem 'nokogiri'
+gem 'iso_country_codes'
+gem 'rake'
+gem 'rspec'
