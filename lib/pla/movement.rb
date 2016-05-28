@@ -36,12 +36,12 @@ class PLA
         date = gen_date year+1, month, day, hour, minute
       end
 
-      @record['timestamp'] = date.to_s
+      @record[:timestamp] = date
     end
 
     def normalise_ship!
       name = @record.delete(:'vessel name')
-      @record['vessel'] = PLA::Ship.new(name).to_h
+      @record[:vessel] = PLA::Ship.new(name).to_h
     end
 
     def normalise_country!
@@ -49,6 +49,7 @@ class PLA
       begin
         country = IsoCountryCodes.find(country_code).name
       rescue IsoCountryCodes::UnknownCodeError
+        STDERR.puts "WARNING: Invalid country code #{country_code.upcase}"
         country = country_code
       end
 

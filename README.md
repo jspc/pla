@@ -28,6 +28,13 @@ departures = PLA.departures
 
 puts arrivals
 puts departures
+
+# Find next ten boats set to arrive
+puts PLA.arrivals.sort_by{|a| a[:timestamp]}[0..9]
+
+# Find all boats from Panama
+puts PLA.arrivals.select{|b| b[:country] == 'Panama'}
+
 ```
 
 Licence

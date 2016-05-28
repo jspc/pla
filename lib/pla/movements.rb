@@ -34,7 +34,7 @@ class PLA
 
     def set_headers
       @headers = normalize_and_map(@ships.first.css('th'))
-      @headers[-1] = 'Notes'  # pla returns this as empty. We infer it means notes, though usually it says 'Pilot required'
+      @headers[-1] = 'notes'  # pla returns this as empty. We infer it means notes, though usually it says 'Pilot required'
     end
 
     def set_records
