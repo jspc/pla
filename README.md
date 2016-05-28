@@ -1,3 +1,6 @@
+[![Gem Version](https://badge.fury.io/rb/pla.svg)](https://badge.fury.io/rb/pla)
+[![Build Status](https://travis-ci.org/jspc/pla.svg?branch=master)](https://travis-ci.org/jspc/pla)
+
 PLA
 ==
 

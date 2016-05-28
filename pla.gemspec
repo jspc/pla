@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["james@zero-internet.org.uk"]
 
   spec.summary       = 'Scrape and interact with the Port of London Authority Movements list'
-  spec.homepage      = 'github.com/jspc/pla'
+  spec.homepage      = 'https://github.com/jspc/pla'
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
