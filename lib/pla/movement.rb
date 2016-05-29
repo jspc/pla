@@ -1,6 +1,4 @@
-require 'iso_country_codes'
-
-require 'pla/ship'
+require 'pla/vessel'
 
 class PLA
   class Movement
@@ -11,8 +9,7 @@ class PLA
 
     def to_h
       normalise_timestamp!
-      normalise_ship!
-      normalise_country!
+      normalise_vessel!
       normalise_fields!
 
       @record
@@ -39,21 +36,12 @@ class PLA
       @record[:timestamp] = date
     end
 
-    def normalise_ship!
+    def normalise_vessel!
       name = @record.delete(:'vessel name')
-      @record[:vessel] = PLA::Ship.new(name).to_h
-    end
+      country = @record.delete(:nationality)
+      agent = @record.delete(:agent)
 
-    def normalise_country!
-      country_code = @record.delete(:nationality)
-      begin
-        country = IsoCountryCodes.find(country_code).name
-      rescue IsoCountryCodes::UnknownCodeError
-        STDERR.puts "WARNING: Invalid country code #{country_code.upcase}"
-        country = country_code
-      end
-
-      @record[:country] = country
+      @record[:vessel] = PLA::Vessel.new(name, country, agent).to_h
     end
 
     def normalise_fields!
