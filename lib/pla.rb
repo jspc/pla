@@ -16,31 +16,25 @@ class PLA
   end
 
   def self.method_missing(m, *args, &block)
-    if  m.to_s =~ /^(.*)_by_(.*)_(.*)$/
-      movement_type = $1
-      field = $2
-      field_key = $3
-
-      if self.methods.include? movement_type.to_sym
-        movements = self.send(movement_type.to_sym)
-
-        movements.sort_by{|m| m[field.to_sym][field_key.to_sym]}
-      else
-        super
-      end
-    elsif m.to_s =~ /^(.*)_by_(.*)$/
+    if m.to_s =~ /^(.*)_by_(.*)$/
       movement_type = $1
       field = $2
 
       if self.methods.include? movement_type.to_sym
         movements = self.send(movement_type.to_sym)
-        movements.sort_by{|m| m[field.to_sym]}
-      else
-        super
+
+        if field =~ /^(.*)_(.*)$/
+          field = $1
+          field_key = $2
+
+          m = movements.sort_by{|m| m[field.to_sym][field_key.to_sym]}
+        else
+          m = movements.sort_by{|m| m[field.to_sym]}
+        end
+        return m
       end
-    else
-      super
     end
+    super
   end
 
   def self.respond_to?(method_sym, include_private = false)
