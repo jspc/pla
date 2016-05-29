@@ -15,8 +15,32 @@ class PLA
      PLA::Departures.new.records].flatten.uniq
   end
 
+  def self.find movement_type, field, key
+    if self.methods.include? movement_type
+      movements = self.send(movement_type)
+
+      if field =~ /^(.*)_(.*)$/
+        field = $1
+        field_key = $2
+
+        m = movements.select{|m| m[field.to_sym][field_key.to_sym] == key}
+      else
+        m = movements.select{|m| m[field.to_sym] == key}
+      end
+      m
+    else
+      []
+    end
+  end
+
   def self.method_missing(m, *args, &block)
-    if m.to_s =~ /^(.*)_by_(.*)$/
+    if m.to_s =~ /^find_(.*)_by_(.*)$/
+      movement_type = $1
+      field = $2
+
+      return self.find(movement_type.to_sym, field.to_sym, args.first)
+
+    elsif m.to_s =~ /^(.*)_by_(.*)$/
       movement_type = $1
       field = $2
 
