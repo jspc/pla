@@ -1,5 +1,6 @@
 require 'pla/arrivals'
 require 'pla/departures'
+require 'pla/in_port'
 
 class PLA
   def self.arrivals
@@ -10,9 +11,16 @@ class PLA
     PLA::Departures.new.records
   end
 
+  def self.in_port
+    PLA::InPort.new.records
+  end
+
   def self.all
-    [PLA::Arrivals.new.records,
-     PLA::Departures.new.records].flatten.uniq
+    [
+      self.arrivals,
+      self.departures,
+      self.in_port
+    ].flatten.uniq
   end
 
   def self.find movement_type, field, key

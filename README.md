@@ -25,14 +25,12 @@ require 'pla'
 
 arrivals = PLA.arrivals
 departures = PLA.departures
-
-# Note: all is an amalgam of arrivals and departures.
-# the 'movements' on the PLA website is incomplete; it just
-# shows movements within the port
+in_port = PLA.in-port
 all = PLA.all
 
 puts arrivals
 puts departures
+puts in_port
 puts all
 
 # Find next ten boats set to arrive
@@ -46,6 +44,9 @@ puts PLA.find_all_by_country 'Panama'
 
 # Find all movements by a particular vessel
 puts PLA.find_all_by_vessel_name 'feo swan'
+
+# Listing the movements of a vessel by time
+puts PLA.find_all_by_vessel_name('balmoral').sort_by{|s| s[:timestamp]}
 ```
 
 Licence
