@@ -34,10 +34,10 @@ puts in_port
 puts all
 
 # Find next ten boats set to arrive
-puts PLA.arrivals_by_timestamp[0..9]
+puts PLA.sort_arrivals_by_timestamp[0..9]
 
 # List vessels alphabetically, as per PLA website
-puts PLA.all_by_vessel_name
+puts PLA.sort_all_by_vessel_name
 
 # Find all movements made by Panamanian vessels
 puts PLA.find_all_by_country 'Panama'
@@ -47,6 +47,12 @@ puts PLA.find_all_by_vessel_name 'feo swan'
 
 # Listing the movements of a vessel by time
 puts PLA.find_all_by_vessel_name('balmoral').sort_by{|s| s[:timestamp]}
+
+# Find all vessels leaving a location
+puts PLA.find_all_by_from('rotterdam')
+
+# Likewise; all locations
+puts PLA.find_all_by_location('rotterdam')
 ```
 
 Licence

@@ -26,7 +26,15 @@ class PLA
   def self.find movement_type, field, key
     if self.methods.include? movement_type
       movements = self.send(movement_type)
-      return self.munge_by_field movements, :select, field, key
+
+      if field == :location
+        return [
+          self.munge_by_field(movements, :select, :to, key),
+          self.munge_by_field(movements, :select, :from, key)
+        ].flatten.uniq
+      else
+        return self.munge_by_field movements, :select, field, key
+      end
     end
     []
   end
@@ -56,22 +64,23 @@ class PLA
   end
 
   def self.method_missing(m, *args, &block)
-    if m.to_s =~ /^(.*)_by_(.*)$/
-      movement_type = $1.to_sym
-      field = $2.to_sym
+    if m.to_s =~ /^(find|sort)_(.*)_by_(.*)$/
+      querier = $1
+      type = $2.to_sym
+      field = $3.to_sym
 
-      if movement_type.to_s =~ /^find_(.*)$/
-        movement_type = $1.to_sym
-        return self.find(movement_type, field, args.first)
-      else
-        return self.sort(movement_type, field)
+      if querier == 'find'
+        return self.find(type, field, args.first)
+      elsif querier == 'sort'
+        return self.sort(type, field)
       end
     end
     super
   end
 
   def self.respond_to?(method_sym, include_private = false)
-    if method_sym.to_s =~ /^(.*)_by_(.*)$/
+    if method_sym.to_s =~ /^(find|sort)_(.*)_by_(.*)$/ and
+      self.methods.include? $2.to_sym
       true
     else
       super
